@@ -19,7 +19,7 @@ class MyLexem
 	public String toString(){return type + " - " + val;}
 }
 %%
-
+%ignorecase
 PREFIX = "http://"
 NAME = [a-zA-Z]{1,20}
 PORT = [1-9][0-9]{0,4}

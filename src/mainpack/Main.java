@@ -29,7 +29,7 @@ enum Recognizers {
 public class Main {
 
     /// теперь что бы поменять используемую реализацию автомата достаточно поменять одну строчку здесь
-    static final Recognizers CURRENT_AUTOMAT = Recognizers.REGEX;
+    static final Recognizers CURRENT_AUTOMAT = Recognizers.JFLEX_LEXER;
 
     public static Recognizer getRecognizerInstance() {
         switch (CURRENT_AUTOMAT) {
@@ -155,6 +155,9 @@ public class Main {
         } else {
             while (sc.hasNext()) {
                 String line = sc.next();
+                if (line.equals("END")) {
+                    break;
+                }
                 System.out.println("Строка " + line + (rc.checkString(line) ? "" : " не") + " подходит");
             }
             System.out.println(rc.getStatistic());

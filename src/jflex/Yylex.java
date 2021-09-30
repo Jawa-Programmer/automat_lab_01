@@ -20,7 +20,7 @@ class MyLexem
 	public String getValue(){return val;}
 	public LEXEM_TYPES getType(){return type;}
 	public int getLength(){return len;}
-	public String toString(){return type + " - " + val + " - " + len;}
+	public String toString(){return type + " - " + val;}
 }
 
 // See https://github.com/jflex-de/jflex/issues/222
@@ -80,9 +80,9 @@ class Yylex {
   private static final int [] ZZ_CMAP_BLOCKS = zzUnpackcmap_blocks();
 
   private static final String ZZ_CMAP_BLOCKS_PACKED_0 =
-    "\56\0\1\1\1\2\1\3\11\4\1\5\6\0\32\6"+
-    "\6\0\7\6\1\7\7\6\1\10\3\6\1\11\6\6"+
-    "\u0185\0";
+    "\56\0\1\1\1\2\1\3\11\4\1\5\6\0\7\6"+
+    "\1\7\7\6\1\10\3\6\1\11\6\6\6\0\7\6"+
+    "\1\7\7\6\1\10\3\6\1\11\6\6\u0185\0";
 
   private static int [] zzUnpackcmap_blocks() {
     int [] result = new int[512];
