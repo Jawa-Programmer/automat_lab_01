@@ -1,0 +1,72 @@
+%class SMCAutomat
+%package smc
+%fsmclass AutomatFSM
+%fsmfile AutomatFSM
+%access package
+
+// A %map name cannot be the same as the FSM class name.
+%start AutomatMap::INT
+%map AutomatMap
+%%
+INT{
+	restart INT{}
+	proc(let : char)[let == 'h'] A0 {}
+	Default PROHIBITED{}
+}
+A0{
+	proc(let : char)[let == 't'] A1 {}
+	Default PROHIBITED{}
+}
+A1{
+	proc(let : char)[let == 't'] A2 {}
+	Default PROHIBITED{}
+}
+A2{
+	proc(let : char)[let == 'p'] A3 {}
+	Default PROHIBITED{}
+}
+A3{
+	proc(let : char)[let == ':'] A4 {}
+	Default PROHIBITED{}
+}
+A4{
+	proc(let : char)[let == '/'] A5 {}
+	Default PROHIBITED{}
+}
+A5{
+	proc(let : char)[let == '/'] A6 {}
+	Default PROHIBITED{}
+}
+A6{
+	proc(let : char)[ctxt.is_latin(let)] B {RESET_COUNTER();}
+	Default PROHIBITED{}
+}
+
+B{
+	proc(let : char)[ctxt.is_latin(let) && ctxt.GET_LETTER_COUNT() <= 20] B {INC_COUNTER();}
+	proc(let : char)[let == '.'] C0 {}
+	Default PROHIBITED{}}
+C0{
+	proc(let : char)[ctxt.is_latin(let)] C1 {RESET_COUNTER(); }
+	Default PROHIBITED{}}
+C1{
+	proc(let : char)[ctxt.is_latin(let) && ctxt.GET_LETTER_COUNT() <= 5] C1 {INC_COUNTER();}
+	proc(let : char)[let == ':'] D0 {}
+	end ACCEPTABLE {accept();}
+	Default PROHIBITED{}}
+D0{
+	proc(let : char)[let > '0' && let <= '9'] D1 {RESET_COUNTER();APPEND_DIGIT(let);}
+	Default PROHIBITED{}}
+D1{
+	proc(let : char)[let >= '0' && let <= '9' && ctxt.GET_LETTER_COUNT() <= 5] D1 {INC_COUNTER();APPEND_DIGIT(let);}
+	end ACCEPTABLE {accept();}
+	Default PROHIBITED{}}
+PROHIBITED{
+	restart INT{}
+	Default nil{}
+	}
+ACCEPTABLE
+{
+	restart INT{}
+}
+%%
